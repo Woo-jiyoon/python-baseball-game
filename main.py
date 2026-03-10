@@ -1,6 +1,5 @@
-from controllers import GameController
-from validators import InvalidInputError, validate_retry_command
-from views import InputView, OutputView
+from baseball.controllers import GameController
+from baseball.views import OutputView
 
 class Application:
     @staticmethod
@@ -8,20 +7,10 @@ class Application:
         OutputView.print_start_message()
         controller = GameController()
 
-        while True:
-            controller.play_round()
+        should_continue = True
+        while should_continue:
+            # Controller가 모든 세부사항을 알아서 처리하고 결과만 줌
+            should_continue = controller.play_round()
 
-            while True:
-                try:
-                    retry_command = InputView.read_retry_command()
-                    validate_retry_command(retry_command)
-                    break
-                except InvalidInputError as e:
-                    OutputView.print_error(str(e))
-
-            if retry_command == "2":
-                break
-
-# 시작 코드
 if __name__ == "__main__":
     Application.run()
