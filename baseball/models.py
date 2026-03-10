@@ -13,14 +13,13 @@ class GameResult:
 
 class Computer:
     def __init__(self) -> None:
-        # 생성된 리스트를 변경 불가능한 튜플(tuple)로 묶어서 저장
+        # 생성된 리스트를 변경 불가능한 튜플로 저장
         self._answer: tuple[int, ...] = tuple(utils.generate_unique_random_numbers())
 
     @property
     def answer(self) -> tuple[int, ...]:
         return self._answer
 
-# 리뷰어님의 옵션 A 완벽 적용! 가장 파이썬다운 형태
 @dataclass(frozen=True)
 class Player:
     numbers: tuple[int, ...]
