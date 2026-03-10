@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 
-import utils
-from validators import validate_baseball_numbers
+from baseball import utils
 
-@dataclass
+@dataclass(frozen=True)
 class GameResult:
     strike: int = 0
     ball: int = 0
@@ -14,20 +13,17 @@ class GameResult:
 
 class Computer:
     def __init__(self) -> None:
-        self._answer: list[int] = utils.generate_unique_random_numbers()
+        # 생성된 리스트를 변경 불가능한 튜플(tuple)로 묶어서 저장
+        self._answer: tuple[int, ...] = tuple(utils.generate_unique_random_numbers())
 
     @property
-    def answer(self) -> list[int]:
+    def answer(self) -> tuple[int, ...]:
         return self._answer
 
+# 리뷰어님의 옵션 A 완벽 적용! 가장 파이썬다운 형태
+@dataclass(frozen=True)
 class Player:
-    def __init__(self, numbers_str: str) -> None:
-        validate_baseball_numbers(numbers_str)
-        self._numbers: list[int] = utils.parse_string_to_integers(numbers_str)
-
-    @property
-    def numbers(self) -> list[int]:
-        return self._numbers
+    numbers: tuple[int, ...]
 
 class Referee:
     @staticmethod
