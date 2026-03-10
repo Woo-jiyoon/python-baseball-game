@@ -11,6 +11,11 @@ class GameResult:
     def is_victory(self) -> bool:
         return self.strike == 3
 
+    # 낫싱 상태를 모델 스스로 판단하도록 추가
+    @property
+    def is_nothing(self) -> bool:
+        return self.strike == 0 and self.ball == 0
+
 class Computer:
     def __init__(self) -> None:
         # 생성된 리스트를 변경 불가능한 튜플로 저장
