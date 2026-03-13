@@ -17,9 +17,15 @@ class GameResult:
         return self.strike == 0 and self.ball == 0
 
 class Computer:
-    def __init__(self) -> None:
-        # 생성된 리스트를 변경 불가능한 튜플로 저장
-        self._answer: tuple[int, ...] = tuple(utils.generate_unique_random_numbers())
+    # 스스로 난수를 만들지 않고 밖에서 만들어진 튜플만 받음
+    def __init__(self, answer: tuple[int, ...]) -> None:
+        self._answer = answer
+
+    # 팩토리 메서드 : 게임에서 실제로 쓸 난수가 들어간 컴퓨터를 생성해 주는 생성기
+    @classmethod
+    def generate(cls) -> "Computer":
+        numbers = tuple(utils.generate_unique_random_numbers())
+        return cls(answer=numbers)
 
     @property
     def answer(self) -> tuple[int, ...]:
