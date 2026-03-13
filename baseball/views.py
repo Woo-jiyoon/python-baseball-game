@@ -1,4 +1,4 @@
-from models import GameResult
+from baseball.models import GameResult
 
 class InputView:
     @staticmethod
@@ -16,7 +16,7 @@ class OutputView:
 
     @staticmethod
     def print_result(result: GameResult) -> None:
-        if result.strike == 0 and result.ball == 0:
+        if result.is_nothing:
             print("낫싱")
             return
 
